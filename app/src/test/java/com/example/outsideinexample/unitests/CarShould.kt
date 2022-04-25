@@ -2,10 +2,13 @@ package com.example.outsideinexample.unitests
 
 import com.example.outsideinexample.Car
 import com.example.outsideinexample.Engine
+import com.example.outsideintddexample.acceptancetests.MainCoroutineScopeRule
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 
 
@@ -18,10 +21,14 @@ class CarShould {
     // Car object also take engine object
     private val car = Car(9.0,engine)
 
+
+    @get: Rule
+    var coroutineTestRule = MainCoroutineScopeRule()
+
     // This method test the car object with
     // the fuel lost by 0.5 litres when car is tuned on
     @Test
-    fun loseFuelWhenTurnedOn(){
+    fun loseFuelWhenTurnedOn() = runBlockingTest{
 
         // method is called
         car.turnOn()
@@ -35,7 +42,7 @@ class CarShould {
 
     // This method test the engine object, with the
     @Test
-    fun turnOnItsEngine(){
+    fun turnOnItsEngine() = runBlockingTest{
 
         // method is called
         car.turnOn()

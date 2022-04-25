@@ -1,5 +1,9 @@
 package com.example.outsideinexample
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 // Car class to test
 class Car(var fuel: Double, val engine:Engine) {
 
@@ -10,7 +14,10 @@ class Car(var fuel: Double, val engine:Engine) {
         fuel -= 0.5
 
         // if the car starts, then the engine must turnOn
-        engine.turnOn()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            engine.turnOn()
+        }
     }
 
 }
